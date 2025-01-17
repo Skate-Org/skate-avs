@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2021", // Specifies the target JavaScript version. Use "ES5" if needed.
+    "module": "commonjs", // Specifies module code generation.
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true, // Enables all strict type-checking options.
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true, // Enables compatibility with CommonJS modules using default imports.
+    "resolveJsonModule": true, // Enable importing JSON files
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

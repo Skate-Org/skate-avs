@@ -1,0 +1,11 @@
+data/*.db
+test.html
+*.test.*
+.othentic/
+node_modules/
+.env*
+!.env.example
+
+# JSON Wallets
+keystore
+operators-config

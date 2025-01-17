@@ -1,0 +1,16 @@
+[profile.default]
+optimizer = true
+optimizer_runs = 200
+src = 'src'
+out = 'out'
+libs = ['node_modules', 'lib']
+test = 'test'
+cache_path  = 'cache_forge'
+fs_permissions = [{ access = "read", path = "./out"}]
+remappings = [
+    '@othentic/=src/',
+    '@layerzerolabs/lz-evm-protocol-v2/=lib/LayerZero-v2/protocol/',
+    '@layerzerolabs/lz-evm-oapp-v2/=lib/LayerZero-v2/oapp/',
+    '@layerzerolabs/lz-evm-messagelib-v2/=lib/LayerZero-v2/messagelib/',
+    'solidity-bytes-utils/contracts/=src/lz/util/',
+]

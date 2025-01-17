@@ -1,0 +1,73 @@
+# Othentic CLI, make sure to have correct access key in Dockerfile
+x-othentic-cli: &othentic-cli
+  env_file:
+    - .env
+  build:
+    context: .
+    dockerfile: ./Dockerfile
+
+# Services
+services:
+  attester-1:
+    <<: *othentic-cli
+    command: [
+      "node",
+      "attester",
+      "/dns4/aggregator.avs.skatechain.org/tcp/6666/p2p/${OTHENTIC_BOOTSTRAP_ID}",
+      "--avs-webapi",
+      "https://webapi.avs.skatechain.org",
+      "--avs-webapi-port",
+      "443",
+    ]
+    environment:
+      - PRIVATE_KEY=${PRIVATE_KEY_VALIDATOR1}
+    ports:
+      - "7001:7001"
+
+  attester-2:
+    <<: *othentic-cli
+    command: [
+      "node",
+      "attester",
+      "/dns4/aggregator.avs.skatechain.org/tcp/6666/p2p/${OTHENTIC_BOOTSTRAP_ID}",
+      "--avs-webapi",
+      "https://webapi.avs.skatechain.org",
+      "--avs-webapi-port",
+      "443",
+    ]
+    environment:
+      - PRIVATE_KEY=${PRIVATE_KEY_VALIDATOR2}
+    ports:
+      - "7002:7002"
+
+  attester-3:
+    <<: *othentic-cli
+    command: [
+      "node",
+      "attester",
+      "/dns4/aggregator.avs.skatechain.org/tcp/6666/p2p/${OTHENTIC_BOOTSTRAP_ID}",
+      "--avs-webapi",
+      "https://webapi.avs.skatechain.org",
+      "--avs-webapi-port",
+      "443",
+    ]
+    environment:
+      - PRIVATE_KEY=${PRIVATE_KEY_VALIDATOR3}
+    ports:
+      - "7003:7003"
+
+  attester-4:
+    <<: *othentic-cli
+    command: [
+      "node",
+      "attester",
+      "/dns4/aggregator.avs.skatechain.org/tcp/6666/p2p/${OTHENTIC_BOOTSTRAP_ID}",
+      "--avs-webapi",
+      "https://webapi.avs.skatechain.org",
+      "--avs-webapi-port",
+      "443",
+    ]
+    environment:
+      - PRIVATE_KEY=${PRIVATE_KEY_VALIDATOR4}
+    ports:
+      - "7004:7004"

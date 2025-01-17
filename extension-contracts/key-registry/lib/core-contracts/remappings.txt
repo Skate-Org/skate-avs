@@ -1,0 +1,9 @@
+@othentic/=src/
+@othentic-script/=script/
+@othentic-test/=test/
+LayerZero-v2/=lib/LayerZero-v2/
+forge-std/=lib/forge-std/src/
+@openzeppelin/=lib/openzeppelin-contracts
+@openzeppelin-upgradeable/=lib/openzeppelin-contracts-upgradeable
+@eigenlayer/=lib/eigenlayer-contracts/src/
+@eigenlayer-middleware/=lib/eigenlayer-middleware/src/

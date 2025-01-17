@@ -1,0 +1,20 @@
+{
+  "name": "avs_scripts",
+  "version": "1.0.0",
+  "description": "AVS Scripting Utils",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier -w ."
+  },
+  "author": "Skate Organization",
+  "license": "BSL1.1",
+  "dependencies": {
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.7",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}

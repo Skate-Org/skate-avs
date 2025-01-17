@@ -1,0 +1,22 @@
+{
+  "name": "avs_webapi",
+  "version": "0.0.2",
+  "description": "AVS web API",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "Skate Organization",
+  "license": "BSL1.1",
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "fastify": "^4.28.1",
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}

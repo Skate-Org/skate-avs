@@ -1,0 +1,32 @@
+{
+  "name": "avs_performer",
+  "version": "1.0.0",
+  "description": "AVS Performer",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/exe/input-handler.js && node dist/exe/sender.js && node dist/exe/watcher.js",
+    "format": "prettier -w .",
+    "mock": "node dist/mock.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "author": "Skate Organization",
+  "license": "BSL1.1",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "fastify": "^4.28.0",
+    "node-cron": "^3.0.3",
+    "pino": "^9.2.0",
+    "pm2": "^5.4.2",
+    "prom-client": "^15.1.2",
+    "viem": "^2.17.4",
+    "zeromq": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.7",
+    "ethers": "^6.13.2",
+    "pino-pretty": "^11.2.1",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}
