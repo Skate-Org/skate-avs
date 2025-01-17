@@ -1,6 +1,6 @@
 ## About
 
-Skate AVS utilize Othentic stack (https://docs.othentic.xyz/main/avs-framework/abstract)[https://docs.othentic.xyz/main/avs-framework/abstract]
+Skate AVS utilize Othentic stack [https://docs.othentic.xyz/main/avs-framework/abstract](https://docs.othentic.xyz/main/avs-framework/abstract)
 
 This repo contains Skate AVS components:
 
