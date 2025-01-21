@@ -122,7 +122,11 @@ export async function startCollectionProcess({
       const currentBlock = await config.getBlockNumber();
       while (startBlock <= currentBlock) {
         const endBlock = startBlock + maxBlockRange - 1n <= currentBlock ? startBlock + maxBlockRange : currentBlock;
-        await config.collectFunction(config.mode, startBlock, endBlock);
+        try {
+          await config.collectFunction(config.mode, startBlock, endBlock);
+        } catch (e) {
+          console.log(`${config.context} collect error: `, e);
+        }
 
         // save progress, write latency << block latency
         intervals[intervals.length - 1].end = Number(endBlock);

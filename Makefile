@@ -82,3 +82,10 @@ build-all:
 		echo -e "\nExecuting '$$cmd' in '/$$dir'"; \
 		$(MAKE) -C $$dir $$cmd; \
 	done
+
+install-all:
+	@for target in $(PRODUCTION_TARGETS); do \
+		dir=$${target%%:*}; \
+		echo -e "\nExecuting 'npm install' in '/$$dir'"; \
+		(cd $$dir && npm install); \
+	done

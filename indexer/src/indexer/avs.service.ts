@@ -116,7 +116,11 @@ export async function watchAttestation(mode: EnvMode) {
       if (approvedTasks.length > 0) {
         console.info(`SkateAvs.Indexer::Collector.Avs -- Collected ${approvedTasks.length} APPROVED task(s) from AVS`);
       }
-      await saveTasks(mode, approvedTasks);
+      try {
+        await saveTasks(mode, approvedTasks);
+      } catch (e) {
+        console.log(`SkateAvs.Indexer::Collector.Avs -- Save AVS approved task error`, e);
+      }
     },
   });
   const unwatchRejectedLogs = l2Client.watchContractEvent({
@@ -128,7 +132,11 @@ export async function watchAttestation(mode: EnvMode) {
       if (rejectedTasks.length > 0) {
         console.info(`SkateAvs.Indexer::Collector.Avs -- Collected ${rejectedTasks.length} APPROVED task(s) from AVS`);
       }
-      await saveTasks(mode, rejectedTasks);
+      try {
+        await saveTasks(mode, rejectedTasks);
+      } catch (e) {
+        console.log(`SkateAvs.Indexer::Collector.Avs -- Save AVS rejected task error`, e);
+      }
     },
   });
 

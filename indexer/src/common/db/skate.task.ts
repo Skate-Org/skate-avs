@@ -5,7 +5,7 @@ import {
   QueryCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { EnvMode } from "../env";
-import { mapToSkateTask, SkateTaskFields, SkateTaskKey } from "./skate.task.type";
+import { mapToSkateTask, SkateTask, SkateTaskFields, SkateTaskKey } from "./skate.task.type";
 import "dotenv/config";
 import { docClient } from "./client";
 
@@ -128,3 +128,70 @@ export async function getSingleBatchSkateTasks(mode: EnvMode, messageBoxAddress:
     throw e;
   }
 }
+
+export async function saveTasks(mode: EnvMode, tasks: SkateTask[]) {
+  const batchSize = 25; // DynamoDB limits batch size to 25
+  const chunks = chunkArray(tasks, batchSize);
+
+  for (const chunk of chunks) {
+    await batchUpdateSkateTasks(mode, chunk);
+  }
+}
+
+export async function batchUpdateSkateTasks(mode: EnvMode, tasks: SkateTask[]) {
+  const writeRequests = tasks.map((task) => {
+    const { taskId, messageBoxAddress, ...rest } = task;
+
+    const updateExpressions: string[] = [];
+    const expressionAttributeValues: Record<string, any> = {};
+    const expressionAttributeNames: Record<string, string> = {};
+
+    for (const [field, value] of Object.entries(rest)) {
+      const objKey = `:${field}`;
+      const attrName = `#${field}`;
+
+      updateExpressions.push(`${attrName} = ${objKey}`);
+      expressionAttributeValues[objKey] = value;
+      expressionAttributeNames[attrName] = field;
+    }
+
+    return {
+      UpdateRequest: {
+        Key: {
+          taskId,
+          messageBoxAddress,
+        },
+        TableName: tableNameFromMode(mode),
+        UpdateExpression: `SET ${updateExpressions.join(", ")}`,
+        ExpressionAttributeValues: expressionAttributeValues,
+        ExpressionAttributeNames: expressionAttributeNames,
+        ReturnValues: "ALL_NEW",
+      },
+    };
+  });
+
+  try {
+    const params = {
+      RequestItems: {
+        [tableNameFromMode(mode)]: writeRequests,
+      },
+    };
+
+    // @ts-ignore
+    const response = await docClient.send(new BatchWriteCommand(params));
+    return response;
+  } catch (e) {
+    console.error("Batch update failed:", e);
+    throw e;
+  }
+}
+
+// Utility function to chunk an array
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+}
+

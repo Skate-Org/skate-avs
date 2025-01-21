@@ -68,7 +68,11 @@ export async function watchIntent(mode: EnvMode) {
         console.log(
           `SkateAvs.Indexer::Collector.Kernel -- ::Collected ${logs.length} TaskSubmitted event(s) from MessageBox`,
         );
-        await saveTasks(mode, tasks);
+        try {
+          await saveTasks(mode, tasks);
+        } catch (e) {
+          console.log(`Save Intent error`, e);
+        }
       }
     },
   });

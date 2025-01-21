@@ -7,7 +7,6 @@ import { newConsumer } from "../lib/zeromq";
 
 const avsProofDataQueue: AvsProofData[] = [];
 const skateTaskQueue: SkateTask[] = [];
-const failedAvsSendCache: {proofData: AvsProofData, timestamp: number}[] = [];
 
 let resumeExecution: null | (() => void) = null; // Function to forcefully resume execution.
 async function* avsTaskIterator() {
@@ -112,14 +111,14 @@ function bundleTaskQToAvsTask() {
 
 
 export default async function main() {
-  const EXECUTION_TIMEOUT = 5_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
+  const PUSH_INTERVAL = 60_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
 
   setInterval(() => {
     const isReady = bundleTaskQToAvsTask();
     if (isReady) {
-      console.log(`AVS.Performer::Sender -- ${EXECUTION_TIMEOUT}ms Time out, proceeds with execution`);
+      console.log(`AVS.Performer::Sender -- ${PUSH_INTERVAL}ms Time out, proceeds with execution`);
     }
-  }, EXECUTION_TIMEOUT);
+  }, PUSH_INTERVAL);
 
   const onTaskReceived = (t: SkateTask) => {
     const { user, chainId, taskId } = t;

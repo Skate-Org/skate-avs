@@ -18,7 +18,7 @@ async function main() {
     watchFunction: () => watchIntent(mode),
     getBlockNumber: skateClient.getBlockNumber,
     checkpointFile: INTENT_CHECKPOINT,
-    maxBlockRange: 10000n,
+    maxBlockRange: 1_000n,
   };
 
   await startCollectionProcess(collectorConfig);

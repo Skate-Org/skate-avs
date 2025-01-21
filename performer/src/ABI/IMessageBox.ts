@@ -1,4 +1,4 @@
-import { parseAbi, parseAbiParameters } from "viem";
+import { parseAbi } from "viem";
 
 export const IMessageBox_ABI = parseAbi([
   "event TaskSubmitted(uint256 taskId, Task task)",
