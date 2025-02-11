@@ -1,12 +1,12 @@
-import { IMessageBox_ABI } from "../ABI/IMessageBox";
+import { IMessageBox_Legacy_ABI } from "../ABI/IMessageBox";
 import { decodeEventLogs } from "../lib/avs";
-import { messageBoxFromMode, skateClient } from "../lib/const";
+import { legacyMessageBox, skateClient } from "../lib/const";
 
 export default async function main() {
   // NOTE: watch and process live
   const logs = await skateClient.getContractEvents({
-    address: messageBoxFromMode("PRODUCTION"),
-    abi: IMessageBox_ABI,
+    address: legacyMessageBox("PRODUCTION"),
+    abi: IMessageBox_Legacy_ABI,
     eventName: "TaskSubmitted",
     strict: true,
     fromBlock: 1982631n,

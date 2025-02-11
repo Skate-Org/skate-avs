@@ -31,6 +31,7 @@ export const AvsGovernance_ABI = parseAbi([
   "function updateAVSMetadataURI(string calldata metadataURI) external", // NOTE: Only Roles.AVS_GOVERNANCE_MULTISIG
 
   "function setStrategyMultiplierBatch(StrategyMultiplier[] calldata _strategyMultipliers) external", // NOTE: Only Roles.MULTIPLIER_SYNCER
+  "function setSupportedStrategies(address[] calldata _strategies) external",
   `struct StrategyMultiplier { address strategy; uint256 multiplier; }`,
 
   "function registerAsAllowedOperator(uint256[4] calldata _blsKey, bytes calldata _authToken, address _rewardsReceiver, SignatureWithSaltAndExpiry memory _operatorSignature, Signature calldata _blsRegistrationSignature) external",

@@ -1,14 +1,14 @@
 import "dotenv/config";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { messageBoxFromMode, SKATE_EXPLORER, skateClient } from "../../../lib/const";
-import { IMessageBox_ABI } from "../../../ABI/IMessageBox";
-import { SkateTask, decodeEventLogs } from "../../../lib/avs";
+import { legacyMessageBox, messageBox, SKATE_EXPLORER, skateClient } from "../../../lib/const";
+import { IMessageBox_ABI, IMessageBox_Legacy_ABI } from "../../../ABI/IMessageBox";
+import { LegacyTaskSubmitted_Log, SkateTask, TaskSubmitted_Log, decodeEventLogs } from "../../../lib/avs";
 import { newProducer } from "../../../lib/zeromq";
 import { MODE } from "../../../lib/env";
 
 export const fetchTasks = async (
   request: FastifyRequest<{
-    Body: { fromBlock: number; toBlock: number };
+    Body: { fromBlock: number; toBlock: number, legacy?: boolean };
     Headers: { "api-key": string };
   }>,
   reply: FastifyReply,
@@ -19,15 +19,27 @@ export const fetchTasks = async (
     return reply.status(401).send({ status: "error", message: "Unauthorized: Invalid API key" });
   }
   try {
-    const { fromBlock, toBlock } = request.body;
-    const logs = await skateClient.getContractEvents({
-      address: messageBoxFromMode(MODE),
-      abi: IMessageBox_ABI,
-      eventName: "TaskSubmitted",
-      fromBlock: BigInt(fromBlock),
-      toBlock: BigInt(toBlock),
-      strict: true,
-    });
+    const { fromBlock, toBlock, legacy } = request.body;
+    let logs: TaskSubmitted_Log[] | LegacyTaskSubmitted_Log[] = []
+    if (!!legacy) {
+      logs = await skateClient.getContractEvents({
+        address: legacyMessageBox(MODE),
+        abi: IMessageBox_Legacy_ABI,
+        eventName: "TaskSubmitted",
+        fromBlock: BigInt(fromBlock),
+        toBlock: BigInt(toBlock),
+        strict: true,
+      });
+    } else {
+      logs = await skateClient.getContractEvents({
+        address: messageBox(MODE),
+        abi: IMessageBox_ABI,
+        eventName: "TaskSubmitted",
+        fromBlock: BigInt(fromBlock),
+        toBlock: BigInt(toBlock),
+        strict: true,
+      });
+    }
     console.log(`Receive request to get tasks from ${fromBlock} to ${toBlock}`);
     if (logs.length > 0) {
       console.log(`Found ${logs.length} logs`);

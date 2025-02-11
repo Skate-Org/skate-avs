@@ -22,19 +22,13 @@ async function main() {
   })
   console.log(`\nID: ${id}`);
 
-  const numberOfShares = await l1Client.readContract({
-    address: AVS_GOVERNANCE_ADDRESS,
-    abi: AvsGovernance_ABI,
-    functionName: "numOfShares",
-    args: [operator]
-  });
   const votingPower = await l1Client.readContract({
     address: AVS_GOVERNANCE_ADDRESS,
     abi: AvsGovernance_ABI,
     functionName: "votingPower",
     args: [operator]
   });
-  console.log(`\n---------------\nStats: share=${formatUnits(numberOfShares, 18)}\tvoting_power=${formatUnits(votingPower, 18)}`);
+  console.log(`\n---------------\nStats: voting_power=${formatUnits(votingPower, 18)}`);
 
   const strategies = await l1Client.readContract({
     address: AVS_GOVERNANCE_ADDRESS,
