@@ -89,3 +89,4 @@ install-all:
 		echo -e "\nExecuting 'npm install' in '/$$dir'"; \
 		(cd $$dir && npm install); \
 	done
+

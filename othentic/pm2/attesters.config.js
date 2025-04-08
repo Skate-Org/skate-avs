@@ -44,7 +44,7 @@ module.exports = {
         L1_CHAIN: process.env.L1_CHAIN,
         L2_CHAIN: process.env.L2_CHAIN,
         OPERATOR_ADDRESS: process.env.VALIDATOR_2,
-      }
+      },
     },
     {
       name: "SkateAvs.Node::Attester 3",
@@ -66,7 +66,7 @@ module.exports = {
         L1_CHAIN: process.env.L1_CHAIN,
         L2_CHAIN: process.env.L2_CHAIN,
         OPERATOR_ADDRESS: process.env.VALIDATOR_3,
-      }
+      },
     },
   ],
 };

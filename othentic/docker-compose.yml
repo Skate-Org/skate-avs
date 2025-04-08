@@ -1,0 +1,21 @@
+version: '3.7'
+x-othentic-cli: &othentic-cli
+  env_file:
+    - .env
+  build:
+    context: .
+    dockerfile: ./Dockerfile
+services:
+  attester-1:
+    <<: *othentic-cli
+    command: [
+      "node",
+      "attester",
+      "/dns4/aggregator.avs.skatechain.org/tcp/6666/p2p/12D3KooWLvCJRgZBraadPPtEMcBSFVeK3uQWxq5LS2wgmSAS1G6q",
+      "--avs-webapi",
+      "https://webapi.avs.skatechain.org",
+      "--avs-webapi-port",
+      "443",
+    ]
+    environment:
+      - PRIVATE_KEY=${PRIVATE_KEY:-${PRIVATE_KEY_VALIDATOR1:-}}
