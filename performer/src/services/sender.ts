@@ -1,8 +1,9 @@
 import { serializeSignature } from "viem";
 import { keccak256, encodeAbiParameters, parseAbiParameters } from "viem";
 import { sign } from "viem/accounts";
-import { SkateTask, AvsProofData, constructProofFromTaskBundle } from "../lib/avs";
-import { PERFORMER, OTHENTIC_AGGREGATOR_RPC, PERFORMER_KEY } from "../lib/const";
+import { SkateTask } from "../lib/abi/IMessageBox";
+import { AvsProofData, constructProofFromTaskBundle } from "../lib/avs";
+import { PERFORMER, OTHENTIC_AGGREGATOR_RPC, PERFORMER_KEY } from "../lib/config";
 import { newConsumer } from "../lib/zeromq";
 
 const avsProofDataQueue: AvsProofData[] = [];
@@ -20,7 +21,7 @@ async function* avsTaskIterator() {
       await new Promise<void>((resolve) => {
         resumeExecution = () => {
           resolve();
-        }
+        };
       });
       console.log("-------------\n*avsTaskIterator() resumed\n-------------");
     }
@@ -104,14 +105,15 @@ function bundleTaskQToAvsTask() {
   const tasksToBundle = [...skateTaskQueue]; // Copy tasks
   const avsTask = constructProofFromTaskBundle(tasksToBundle);
   avsProofDataQueue.push(avsTask);
-  console.log(`AVS.Performer::Sender -- Bundling ${tasksToBundle.length} tasks | PENDING ${avsProofDataQueue.length} AVS tasks`);
+  console.log(
+    `AVS.Performer::Sender -- Bundling ${tasksToBundle.length} tasks | PENDING ${avsProofDataQueue.length} AVS tasks`,
+  );
   skateTaskQueue.splice(0, tasksToBundle.length);
   return true;
 }
 
-
 export default async function main() {
-  const PUSH_INTERVAL = 60_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
+  const PUSH_INTERVAL = 180_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
 
   setInterval(() => {
     const isReady = bundleTaskQToAvsTask();
@@ -130,7 +132,7 @@ export default async function main() {
     if (skateTaskQueue.length >= MAX_BULE_SIZE) {
       bundleTaskQToAvsTask();
     }
-  }
+  };
 
   const consumer = await newConsumer<SkateTask>();
   consumer.registerTaskReceiveHandler(onTaskReceived);

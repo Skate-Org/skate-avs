@@ -7,7 +7,7 @@ module.exports = {
   apps: [
     {
       name: `${prefix}SkateAvs.Performer::Sender`,
-      script: "dist/exe/sender.js",
+      script: "dist/services/sender.js",
       time: true,
     },
   ],

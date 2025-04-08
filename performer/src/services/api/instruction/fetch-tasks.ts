@@ -1,14 +1,20 @@
 import "dotenv/config";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { legacyMessageBox, messageBox, SKATE_EXPLORER, skateClient } from "../../../lib/const";
-import { IMessageBox_ABI, IMessageBox_Legacy_ABI } from "../../../ABI/IMessageBox";
-import { LegacyTaskSubmitted_Log, SkateTask, TaskSubmitted_Log, decodeEventLogs } from "../../../lib/avs";
+import { polymarketMessageBox, shuffleMessageBox, SKATE_EXPLORER, skateClient } from "../../../lib/config";
+import {
+  PolymarketTaskLog,
+  SkateTask,
+  ShuffleTaskLog,
+  decodeEventLogs,
+  IMessageBox_Shuffle_ABI,
+  IMessageBox_Polymarket_ABI,
+} from "../../../lib/abi/IMessageBox";
 import { newProducer } from "../../../lib/zeromq";
 import { MODE } from "../../../lib/env";
 
 export const fetchTasks = async (
   request: FastifyRequest<{
-    Body: { fromBlock: number; toBlock: number, legacy?: boolean };
+    Body: { fromBlock: number; toBlock: number; legacy?: boolean };
     Headers: { "api-key": string };
   }>,
   reply: FastifyReply,
@@ -20,11 +26,11 @@ export const fetchTasks = async (
   }
   try {
     const { fromBlock, toBlock, legacy } = request.body;
-    let logs: TaskSubmitted_Log[] | LegacyTaskSubmitted_Log[] = []
+    let logs: ShuffleTaskLog[] | PolymarketTaskLog[] = [];
     if (!!legacy) {
       logs = await skateClient.getContractEvents({
-        address: legacyMessageBox(MODE),
-        abi: IMessageBox_Legacy_ABI,
+        address: polymarketMessageBox(MODE),
+        abi: IMessageBox_Polymarket_ABI,
         eventName: "TaskSubmitted",
         fromBlock: BigInt(fromBlock),
         toBlock: BigInt(toBlock),
@@ -32,8 +38,8 @@ export const fetchTasks = async (
       });
     } else {
       logs = await skateClient.getContractEvents({
-        address: messageBox(MODE),
-        abi: IMessageBox_ABI,
+        address: shuffleMessageBox(MODE),
+        abi: IMessageBox_Shuffle_ABI,
         eventName: "TaskSubmitted",
         fromBlock: BigInt(fromBlock),
         toBlock: BigInt(toBlock),
@@ -64,4 +70,3 @@ export const fetchTasks = async (
     return reply.status(500).send({ status: "error", message: "Internal fetch error" });
   }
 };
-
