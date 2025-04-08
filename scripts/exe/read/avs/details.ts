@@ -35,7 +35,7 @@ async function main() {
   const stakingStrategies = await l1Client.readContract({
     address: AVS_GOVERNANCE_ADDRESS,
     abi: AvsGovernance_ABI,
-    functionName: "strategies",
+    functionName: "getRestakeableStrategies",
   });
   console.log("------------\nRe-staking strategies: ");
   for (const strategy of stakingStrategies) {
@@ -43,17 +43,19 @@ async function main() {
       address: AVS_GOVERNANCE_ADDRESS,
       abi: AvsGovernance_ABI,
       functionName: "minSharesForStrategy",
-      args: [strategy]
+      args: [strategy],
     });
 
     const multiplier = await l1Client.readContract({
       address: AVS_GOVERNANCE_ADDRESS,
       abi: AvsGovernance_ABI,
       functionName: "strategyMultiplier",
-      args: [strategy]
+      args: [strategy],
     });
 
-    console.log(`minShareRequired=${minShareRequired} | multiplier=${multiplier} | strategy=${strategy}`)
+    console.log(
+      `minShareRequired=${minShareRequired} | multiplier=${multiplier} | strategy=${strategy}`,
+    );
   }
 }
 

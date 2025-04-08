@@ -6,7 +6,7 @@ export const AvsGovernance_ABI = parseAbi([
 
   // AVS INFO
   "function getIsAllowlisted() external view returns (bool)",
-  "function strategies() external view returns (address[] memory)",
+  "function getRestakeableStrategies() external view returns (address[] memory)",
   "function numOfActiveOperators() external view returns (uint256)",
   "function avsDirectory() external view returns (address)",
   "function avsName() external view returns (string memory)",
@@ -30,15 +30,19 @@ export const AvsGovernance_ABI = parseAbi([
 
   "function updateAVSMetadataURI(string calldata metadataURI) external", // NOTE: Only Roles.AVS_GOVERNANCE_MULTISIG
 
-  "function setStrategyMultiplierBatch(StrategyMultiplier[] calldata _strategyMultipliers) external", // NOTE: Only Roles.MULTIPLIER_SYNCER
-  "function setSupportedStrategies(address[] calldata _strategies) external",
-  `struct StrategyMultiplier { address strategy; uint256 multiplier; }`,
+  "function setStakingContractMultiplier(VotingPowerMultiplier calldata _votingPowerMultiplier) external", // NOTE: Only Roles.MULTIPLIER_SYNCER
+  "function setStakingContractMultiplierBatch(VotingPowerMultiplier[] calldata _votingPowerMultipliers) external", // NOTE: Only Roles.MULTIPLIER_SYNCER
+  `struct VotingPowerMultiplier { address stakingContract; uint256 multiplier; uint8 sharedSecurityProvider; }`,
+
+  "function setSupportedStakingContracts(StakingContractInfo[] memory _stakingContractsDetails) external",
+  "struct StakingContractInfo { address stakingContract; uint8 sharedSecurityProvider;}",
 
   "function registerAsAllowedOperator(uint256[4] calldata _blsKey, bytes calldata _authToken, address _rewardsReceiver, SignatureWithSaltAndExpiry memory _operatorSignature, Signature calldata _blsRegistrationSignature) external",
   `struct SignatureWithSaltAndExpiry { bytes signature; bytes32 salt; uint256 expiry; }`,
   `struct Signature { uint256[2] signature; }`,
 
   "function setAllowlistSigner(address _allowlistSigner) external",
+  "function setAvsGovernanceMultiplierSyncer(address _newAvsGovernanceMultiplierSyncer)"
   ////////////////////////////////////////
   ////////////////////////////////////////
 ] as const);

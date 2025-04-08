@@ -10,7 +10,8 @@
   "license": "BSL1.1",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "viem": "^2.21.35"
+    "viem": "^2.21.35",
+    "@skate-org/skate-app-amm": "1.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.14.7",

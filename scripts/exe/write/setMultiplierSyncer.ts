@@ -7,12 +7,12 @@ async function main() {
     account: avsOwnerAccount,
     address: AVS_GOVERNANCE_ADDRESS,
     abi: AvsGovernance_ABI,
-    functionName: "setIsAllowlisted",
-    args: [true],
+    functionName: "setAvsGovernanceMultiplierSyncer",
+    args: [avsOwnerAccount.address],
   });
 
   const txHash = await l1WriteClient.writeContract(request);
-  console.log(`Checkout: ${L1_EXPLORER}/tx/${txHash}`);
+  console.log(`Set new supported strategies: ${L1_EXPLORER}/tx/${txHash}`);
 }
 
 main();
