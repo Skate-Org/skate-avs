@@ -12,8 +12,8 @@ export async function getTasksByOperatorHandler(
       limit?: string;
     } & (
       | {
-        address: `0x${string}`;
-      }
+          address: `0x${string}`;
+        }
       | { id: number }
     );
   }>,
@@ -50,6 +50,7 @@ export async function getTasksByOperatorHandler(
 
     const taskIds = tasks.map((t) => t.taskId);
     const avsTasks = await getBatchAvsTasks(MODE, taskIds);
+    avsTasks.sort((t1, t2) => t2.taskId - t1.taskId);
 
     const data = {
       taskCount,
