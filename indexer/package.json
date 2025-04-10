@@ -1,13 +1,11 @@
 {
-  "name": "avs_webapi",
-  "version": "0.0.2",
-  "description": "AVS web API",
+  "name": "AVS Indexer",
+  "version": "1.0.0-beta",
+  "description": "Indexing AVS Task Submission",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "format": "prettier -w .",
-    "dev": "ts-node src/index.ts",
-    "start": "node dist/index.js"
+    "build": "tsc -b",
+    "format": "prettier -w ."
   },
   "author": "Skate Organization",
   "license": "BSL1.1",
@@ -37,10 +35,10 @@
     "pino": "^9.2.0",
     "prom-client": "^15.1.2",
     "protobufjs": "7.3.2",
-    "viem": "^2.19.1"
+    "viem": "^2.26.2"
   },
   "devDependencies": {
-    "@types/node": "^20.14.8",
+    "@types/node": "^22.6.0",
     "@types/node-cron": "^3.0.11",
     "pino-pretty": "^11.2.1",
     "prettier": "^3.3.3",

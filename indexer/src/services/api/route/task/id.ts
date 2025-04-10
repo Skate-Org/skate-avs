@@ -1,9 +1,8 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { getSingleSkateTask } from "../../../common/db";
-import { MODE } from "../../../common/env";
-import { messageBoxFromMode } from "../../../indexer/utils";
+import { MODE } from "../../../../lib/env";
+import { getSingleAvsTask } from "../../../../lib/db";
 
-export async function singleTaskInfoHandler(
+export async function getTaskByIdHandler(
   request: FastifyRequest<{
     Params: { taskId: number };
   }>,
@@ -11,11 +10,8 @@ export async function singleTaskInfoHandler(
 ) {
   try {
     const { taskId } = request.params;
-    console.log(`SkateAvs.Indexer::[WebServer]/task/:taskId -- Request for `, taskId);
-    const taskResult = await getSingleSkateTask(MODE, {
-      taskId: Number(taskId),
-      messageBoxAddress: messageBoxFromMode(MODE),
-    });
+    console.log(`SkateAvs.Indexer::[WebServer]/task/:taskId -- Request for AVS task: `, taskId);
+    const taskResult = await getSingleAvsTask(MODE, Number(taskId));
 
     return reply.status(200).send({ success: true, data: taskResult });
   } catch (error) {

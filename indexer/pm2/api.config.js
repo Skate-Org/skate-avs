@@ -6,8 +6,8 @@ const prefix = isStaging ? "STAGING - " : "";
 module.exports = {
   apps: [
     {
-      name: `${prefix}SkateAvs.Indexer::Web Server`,
-      script: "dist/web-server/index.js",
+      name: `${prefix}SkateAvs.Indexer::Web API`,
+      script: "dist/services/api/exe.js",
       time: true,
     },
   ],

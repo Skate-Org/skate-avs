@@ -6,18 +6,8 @@ const prefix = isStaging ? "STAGING - " : "";
 module.exports = {
   apps: [
     {
-      name: `${prefix}SkateAvs.Indexer::Collector.Avs`,
-      script: "dist/indexer/avs.process.js",
-      time: true,
-    },
-    {
-      name: `${prefix}SkateAvs.Indexer::Collector.Kernel`,
-      script: "dist/indexer/kernel.process.js",
-      time: true,
-    },
-    {
-      name: `${prefix}SkateAvs.Indexer::Aggregator Hook`,
-      script: "dist/p2p/aggregator.hook.js",
+      name: `${prefix}SkateAvs.Indexer::AttestationCenter`,
+      script: "dist/services/indexer/exe.js",
       time: true,
     },
   ],

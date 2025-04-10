@@ -12,10 +12,6 @@ app.register(cors, corsOptions);
 // Custom rate limiter
 app.register(rateLimit, rateLimitOptions);
 
-// // NOTE: enable this if DDoS occurs.
-// import { validateKeyMiddleware } from './middleware/validAPIKey';
-// app.addHook('onRequest', validateKeyMiddleware);
-
 // Metrics middleware
 app.addHook("onRequest", metricsMiddleware);
 
@@ -28,5 +24,5 @@ app.listen({ port: PORT, host: "0.0.0.0" }, (err, address) => {
     app.log.error(err);
     process.exit(1);
   }
-  console.log(`SkateAvs.Indexer::Web Server started on port ${PORT}`);
+  console.log(`SkateAvs.Indexer::Web Server started on http://localhost:${PORT}`);
 });

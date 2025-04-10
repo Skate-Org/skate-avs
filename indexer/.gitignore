@@ -13,3 +13,4 @@ prisma/*.db*
 progress
 dist
 **/cache
+tsconfig.tsbuildinfo
