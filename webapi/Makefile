@@ -9,7 +9,7 @@ help:
 -----------------------------: ## 
 ___BUILDs___: ## Build scripts
 build: ## build typescript into javascript
-	@npx tsc
+	@npm run build
 	@echo "Built to ./dist/"
 clean-build: # Delete all the process and flush the log
 	@rm -rf dist

@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "AVS Performer",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/exe/input-handler.js && node dist/exe/sender.js && node dist/exe/watcher.js",
-    "format": "prettier -w .",
-    "mock": "node dist/mock.js",
-    "dev": "ts-node src/index.ts"
+    "build": "tsc -b",
+    "format": "prettier -w ."
   },
   "author": "Skate Organization",
   "license": "BSL1.1",

@@ -41,3 +41,4 @@ stop-avs-nodes: ## Delete all the process and flush the log
 -----------------------------: ## 
 ___GLOBAL___: ## 
 build:
+clean-build:

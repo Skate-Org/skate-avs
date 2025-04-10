@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "AVS web API",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b",
     "start": "node dist/index.js"
   },
   "author": "Skate Organization",
