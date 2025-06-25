@@ -113,7 +113,7 @@ function bundleTaskQToAvsTask() {
 }
 
 export default async function main() {
-  const PUSH_INTERVAL = 180_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
+  const PUSH_INTERVAL = 60_000; // Timeout to force process without full log bundle, i.e. logs.size < BUNDLE_SIZE
 
   setInterval(() => {
     const isReady = bundleTaskQToAvsTask();

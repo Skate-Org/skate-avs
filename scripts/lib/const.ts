@@ -11,6 +11,8 @@ export const L1_EXPLORER = process.env.L1_EXPLORER as string;
 export const AVS_GOVERNANCE_ADDRESS = process.env
   .AVS_GOVERNANCE_ADDRESS as `0x${string}`;
 
+export const AVS_TREASURY_L1 = process.env.L1_VAULT as `0x${string}`;
+
 export const L2_RPC = process.env.L2_RPC as string;
 export const L2_EXPLORER = process.env.L2_EXPLORER as string;
 export const ATTESTATION_CENTER_ADDRESS = process.env

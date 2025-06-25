@@ -14,6 +14,9 @@ module.exports = {
         "http://localhost",
         "--avs-webapi-port",
         "4002",
+        "--metrics",
+        "--metrics.port",
+        "6061",
       ],
       env: {
         PRIVATE_KEY: `${process.env.PRIVATE_KEY_VALIDATOR1}`,
@@ -36,6 +39,9 @@ module.exports = {
         "http://localhost",
         "--avs-webapi-port",
         "4002",
+        "--metrics",
+        "--metrics.port",
+        "6062",
       ],
       env: {
         PRIVATE_KEY: `${process.env.PRIVATE_KEY_VALIDATOR2}`,
@@ -58,6 +64,8 @@ module.exports = {
         "http://localhost",
         "--avs-webapi-port",
         "4002",
+        "--metrics.port",
+        "6063",
       ],
       env: {
         PRIVATE_KEY: `${process.env.PRIVATE_KEY_VALIDATOR3}`,

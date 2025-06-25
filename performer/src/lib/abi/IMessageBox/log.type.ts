@@ -31,7 +31,7 @@ function decodeLog(log: ShuffleTaskLog | PolymarketTaskLog | AmmTaskLog): SkateT
   };
 }
 
-export function decodeEventLogs(taskSubmittedLogs: PolymarketTaskLog[] | ShuffleTaskLog[]): SkateTask[] {
+export function decodeEventLogs(taskSubmittedLogs: PolymarketTaskLog[] | ShuffleTaskLog[] | AmmTaskLog[]): SkateTask[] {
   const decodedLogs = taskSubmittedLogs.map(decodeLog);
   return decodedLogs;
 }

@@ -15,7 +15,8 @@ export function shuffleMessageBox(mode: EnvMode) {
 }
 
 const AMM_MESSAGE_BOX = "0x24417A21e0092887D4B491a59BE7166590e6c91C";
+const AMM_MESSAGE_BOX_PROD = "0x6863b6F2E4E0e212Cc43a460e6a9b49579a7AC8D";
 export function ammMessageBox(mode: EnvMode) {
-  const address = mode == "PRODUCTION" ? AMM_MESSAGE_BOX : AMM_MESSAGE_BOX;
+  const address = mode == "PRODUCTION" ? AMM_MESSAGE_BOX_PROD : AMM_MESSAGE_BOX;
   return address as `0x${string}`;
 }

@@ -150,10 +150,11 @@ export async function getBatchAvsTasks(mode: EnvMode, taskIds: number[]) {
   }
 }
 
-export async function getAllAvsTasks(mode: EnvMode) {
+export async function getAllAvsTasks(mode: EnvMode, limit: number = 50) {
   const params = {
     TableName: tableNameFromMode(mode),
     ConsistentRead: true, // Ensures consistent reads
+    ScanIndexForward: false, // Scan in descending order based on the sort key (taskId)
   };
 
   try {
@@ -162,13 +163,22 @@ export async function getAllAvsTasks(mode: EnvMode) {
 
     for await (const page of paginator) {
       if (page.Items) {
-        items.push(...page.Items.map((o) => mapToAvsTask(o)).filter((o) => o != null));
+        const mappedItems = page.Items.map((o) => mapToAvsTask(o)).filter((o): o is NonNullable<typeof o> => o != null);
+        items.push(...mappedItems);
+        // Stop fetching if we have reached or exceeded the limit
+        if (items.length >= limit) {
+          break;
+        }
       }
     }
 
-    return items.length > 0 ? items : [];
+    // Take only up to the limit
+    const limitedItems = items.slice(0, limit);
+
+    // Items are already sorted in descending order by taskId due to ScanIndexForward: false
+    return limitedItems; // Return the sorted and limited items (could be empty)
   } catch (e) {
-    console.error(`SkateAvs.Indexer::db.getAllTasks failed:`, e);
+    console.error(`SkateAvs.Indexer::db.getAllAvsTasks failed:`, e);
     throw e;
   }
 }

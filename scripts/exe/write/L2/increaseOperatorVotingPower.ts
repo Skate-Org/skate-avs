@@ -9,7 +9,7 @@ async function main() {
     address: OBLS_ADDRESS,
     abi: OBLS_ABI,
     functionName: "increaseOperatorVotingPower",
-    args: [17n, parseUnits("8999.374080334167934788", 18)],
+    args: [23n, parseUnits("108570", 18)],
   });
 
   const txHash = await l2WriteClient.writeContract(request2);

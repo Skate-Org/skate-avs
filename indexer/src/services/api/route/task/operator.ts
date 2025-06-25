@@ -12,8 +12,8 @@ export async function getTasksByOperatorHandler(
       limit?: string;
     } & (
       | {
-          address: `0x${string}`;
-        }
+        address: `0x${string}`;
+      }
       | { id: number }
     );
   }>,
@@ -22,7 +22,7 @@ export async function getTasksByOperatorHandler(
   try {
     const query = request.query;
 
-    const limit = Math.max(Number(query.limit || 0), 50);
+    const limit = Math.max(Number(query.limit || 0), 10);
 
     let attesterId: number | null = null;
 
@@ -48,11 +48,20 @@ export async function getTasksByOperatorHandler(
 
     const { tasks, taskCount } = await getAvsTasksByAttester(MODE, attesterId, limit);
 
+    const { operator: address } = await l2Client.readContract({
+      address: ATTESTATION_CENTER_ADDRESS,
+      abi: AttestationCenter_ABI,
+      functionName: "getOperatorPaymentDetail",
+      args: [BigInt(attesterId)],
+    });
+
     const taskIds = tasks.map((t) => t.taskId);
     const avsTasks = await getBatchAvsTasks(MODE, taskIds);
     avsTasks.sort((t1, t2) => t2.taskId - t1.taskId);
 
     const data = {
+      id: attesterId,
+      address,
       taskCount,
       recentTasks: avsTasks,
     };

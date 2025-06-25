@@ -13,6 +13,7 @@ build: ## Build TypeScript source code into JavaScript (output to ./dist/)
 	@echo "Built to ./dist/"
 clean-build: ## Remove the build directory (./dist/)
 	@rm -rf dist
+	@rm -f *.tsbuildinfo
 	@echo "Build cleaned"
 
 -----------------------------: ## 

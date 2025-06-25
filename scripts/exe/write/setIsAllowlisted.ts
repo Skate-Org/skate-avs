@@ -8,7 +8,7 @@ async function main() {
     address: AVS_GOVERNANCE_ADDRESS,
     abi: AvsGovernance_ABI,
     functionName: "setIsAllowlisted",
-    args: [false],
+    args: [true],
   });
 
   const txHash = await l1WriteClient.writeContract(request);
