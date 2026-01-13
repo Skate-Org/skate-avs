@@ -1,9 +1,9 @@
 import { AVS_TREASURY_L1, L1_EXPLORER } from "../../lib/const";
 import { avsOwnerAccount, l1Client, l1WriteClient } from "../../lib/client";
 import { parseAbi } from "viem";
+import { EzSKATE } from "../../lib/ABI/EzRVault";
 
-const EIGEN_TOKEN_ADDRESS = "0xec53bf9167f50cdeb3ae105f56099aaab9061f83";
-const newToken = EIGEN_TOKEN_ADDRESS;
+const newToken = EzSKATE;
 
 async function main() {
   const { request } = await l1Client.simulateContract({

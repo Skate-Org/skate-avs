@@ -25,13 +25,6 @@ async function main() {
   });
   console.log("\nNumber of active operators:", activeOperatorCount);
 
-  const numberOfOperatorLimit = await l1Client.readContract({
-    address: AVS_GOVERNANCE_ADDRESS,
-    abi: AvsGovernance_ABI,
-    functionName: "getNumOfOperatorsLimit",
-  });
-  console.log("\nMax number of operator allowed: ", numberOfOperatorLimit);
-
   const stakingStrategies = await l1Client.readContract({
     address: AVS_GOVERNANCE_ADDRESS,
     abi: AvsGovernance_ABI,
@@ -42,14 +35,14 @@ async function main() {
     const minShareRequired = await l1Client.readContract({
       address: AVS_GOVERNANCE_ADDRESS,
       abi: AvsGovernance_ABI,
-      functionName: "minSharesForStrategy",
+      functionName: "minStakeAmountPerStakingContract",
       args: [strategy],
     });
 
     const multiplier = await l1Client.readContract({
       address: AVS_GOVERNANCE_ADDRESS,
       abi: AvsGovernance_ABI,
-      functionName: "strategyMultiplier",
+      functionName: "multiplier",
       args: [strategy],
     });
 

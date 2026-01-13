@@ -2,6 +2,7 @@ import { AvsGovernance_ABI } from "../../lib/ABI/AvsGovernance";
 import {
   AVS_GOVERNANCE_ADDRESS,
   L1_EXPLORER,
+  SKATE_EIGEN_STRATEGY,
 } from "../../lib/const";
 import { avsOwnerAccount, l1Client, l1WriteClient } from "../../lib/client";
 
@@ -35,6 +36,7 @@ async function main() {
     ["0xAe60d8180437b5C34bB956822ac2710972584473", 0],
     ["0xbeaC0eeEeeeeEEeEeEEEEeeEEeEeeeEeeEEBEaC0", 0],
     ["0x1faea963dffa4aca3b79700a448acc75b1b63c60", 0],
+    [SKATE_EIGEN_STRATEGY, 0],
   ].map((e) => ({
     stakingContract: e[0] as `0x${string}`,
     sharedSecurityProvider: e[1] as number,

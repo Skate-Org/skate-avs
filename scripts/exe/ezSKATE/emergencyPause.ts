@@ -1,17 +1,19 @@
-import { AVS_TREASURY_L1, L1_EXPLORER } from "../../lib/const";
+import { L1_EXPLORER } from "../../lib/const";
 import { avsOwnerAccount, l1Client, l1WriteClient } from "../../lib/client";
-import { parseAbi } from "viem";
+import { EzRVault_ABI, EzSKATE } from "../../lib/ABI/EzRVault";
 
+// WARN: This pause all interaction with Renzo contract
 async function main() {
   const { request } = await l1Client.simulateContract({
     account: avsOwnerAccount,
-    address: AVS_TREASURY_L1,
-    abi: parseAbi(["function completeTokenReplacement()"]),
-    functionName: "completeTokenReplacement",
+    address: EzSKATE,
+    abi: EzRVault_ABI,
+    functionName: "pause",
+    args: [],
   });
 
   const txHash = await l1WriteClient.writeContract(request);
-  console.log(`Reward token changed: ${L1_EXPLORER}/tx/${txHash}.`);
+  console.log(`Called: ${L1_EXPLORER}/tx/${txHash}`);
   await l1Client.waitForTransactionReceipt({ hash: txHash });
 }
 
