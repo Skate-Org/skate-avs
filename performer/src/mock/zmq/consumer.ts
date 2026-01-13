@@ -13,4 +13,3 @@ import { newConsumer } from "../../lib/zeromq";
   // Optional: Close the consumer when needed
   // await consumer.close();
 })();
-

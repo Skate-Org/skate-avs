@@ -9,7 +9,7 @@
   "author": "Skate Organization",
   "license": "BSL1.1",
   "dependencies": {
-    "@skate-org/skate-app-amm": "1.0.4",
+    "@skate-org/skate-app-amm": "2.0.0-rc.25",
     "dotenv": "^16.0.1",
     "mcl-wasm": "^1.8.0",
     "viem": "^2.21.35"

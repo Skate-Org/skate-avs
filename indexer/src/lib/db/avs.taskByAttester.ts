@@ -74,6 +74,8 @@ export async function getAvsTasksByAttester(
       const remainingSpace = limit - collectedTasks.length;
       if (remainingSpace > 0) {
         collectedTasks.push(...items.slice(0, remainingSpace));
+      } else {
+        break;
       }
       // We still need to iterate through all pages to get the correct totalCount,
       // even if we have already collected enough tasks for the limit.
